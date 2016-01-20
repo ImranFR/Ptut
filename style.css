@@ -12,6 +12,15 @@ a,h2{
     text-align: center;
 }
 
+.image{
+    text-align: center;
+}
+
+.valide{
+    padding-top:20vh;
+    padding-bottom: 20vh;
+}
+
 table{
     width:98vw; 
     height:auto;

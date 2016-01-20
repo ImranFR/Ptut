@@ -227,7 +227,7 @@
                     if (isset($update)){
                         echo 'ok';
                         mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
-                        header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/CPOA/Billetterie/paiement.html');
+                        header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/ajout_valide.html');
                         exit;
                     }
                     echo "<a href='validation.php?update=true'>Valider</a>";
@@ -240,3 +240,4 @@
                 }
             ?>
     </body>
+</html>
