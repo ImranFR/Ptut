@@ -1,21 +1,6 @@
 <?php
     ini_set('session.save_path', 'tmp');
     session_start();
-    function Connect_db(){
-		$host="iutdoua-webetu.univ-lyon1.fr"; 
-		$user="p1400208";     
-		$password="210684";     
-		$dbname="p1400208";
-		
-		try {
-		    $bdd=new PDO('mysql:host='.$host.';dbname='.$dbname.';charset=utf8',$user,$password);
-		    return $bdd;                          // Connexion à la base de données
-		}
-		catch (Exception $e) {
-		    die('Erreur : '.$e->GetMessage());
-		}  
-	}
-	
 ?>
 
 <!DOCTYPE html>
@@ -77,14 +62,14 @@
 
 
     <body>
-        <form method="POST" action="accueil.php" id = "formulaire">
+        <form method="POST" action="index.php" id = "formulaire">
            
            
                 <div id="field1-container" class="field f_100">
                    <label for="field1">
                        Votre nom :</br>
                    </label>
-                   <input type="text" name="Nom_etu" id="field1" required="required">
+                   <input type="text" name="Nom_etu" id="field1" required="required" value=<?php echo $Nom_etu ;?> >
               </div>
 
 
@@ -92,7 +77,7 @@
                    <label for="field3">
                         Votre prénom :</br>
                    </label>
-                   <input type="text" name="Prenom_etu" id="field3" required="required">
+                   <input type="text" name="Prenom_etu" id="field3" required="required" value=<?php echo $Prenom_etu ;?> >
               </div>
 
 
@@ -100,7 +85,7 @@
                    <label for="field6">
                         Votre adresse mail :</br>
                    </label>
-                   <input type="email" name="Mail_etu" id="field6" required="required">
+                   <input type="email" name="Mail_etu" id="field6" required="required" value=<?php echo $Mail_etu ;?> >
               </div>
 
 
@@ -108,7 +93,7 @@
                    <label for="field5">
                         Le domaine informatique de votre stage :</br>
                    </label>
-                   <input type="text" name="Domaine_info" id="field5" required="required">
+                   <input type="text" name="Domaines_info" id="field5" required="required" value=<?php echo $Domaines_info ;?> >
               </div>
 
 
@@ -116,15 +101,15 @@
                    <label for="field7">
                         Le nom de l'entreprise où vous avez effectué votre stage :</br>
                    </label>
-                   <input type="text" name="Nom_entreprise" id="field7" required="required">
+                   <input type="text" name="Nom_entreprise" id="field7" required="required" value=<?php echo $Nom_entreprise ;?> >
               </div>
 
 
               <div id="field8-container" class="field f_100">
                    <label for="field8">
-                        Les secteurs d'activité de l'entreprise (séparés par des virgules) :</br>
+                        Les secteurs d'activité de l'entreprise (séparés par des espaces) :</br>
                    </label>
-                   <input type="text" name="Secteur_entreprise" id="field8" required="required">
+                   <input type="text" name="Secteur_entreprise" id="field8" required="required" value=<?php echo $Secteur_entreprise ;?> >
               </div>
 
 
@@ -132,8 +117,7 @@
                    <label for="field9">
                         La date de début de votre stage :</br>
                    </label>
-                   <input class="ttw-date date" id="field9" maxlength="524288" name="Date_stage"
-                   required="" size="20" tabindex="0" title="">
+                   <input type="date" name="Date_stage" value=<?php echo $Date_stage ;?> >
               </div>
 
 
@@ -141,7 +125,7 @@
                    <label for="field10">
                         Le pays où vous avez réalisé votre stage :</br>
                    </label>
-                   <input type="text" name="Pays_stage" id="field10" required="required">
+                   <input type="text" name="Pays_stage" id="field10" required="required" value=<?php echo $Pays_stage ;?> >
               </div>
 
 
@@ -149,7 +133,7 @@
                    <label for="field11">
                         Le nom de votre tuteur IUT :</br>
                    </label>
-                   <input type="text" name="Nom_tuteur_IUT" id="field11" required="required">
+                   <input type="text" name="Nom_tuteur_IUT" id="field11" required="required" value=<?php echo $Nom_tuteur_IUT ;?> >
               </div>
 
 
@@ -157,7 +141,7 @@
                    <label for="field12">
                         Le nom de votre tuteur en entreprise :</br>
                    </label>
-                   <input type="text" name="Nom_tuteur_entreprise" id="field12" required="required">
+                   <input type="text" name="Nom_tuteur_entreprise" id="field12" required="required" value=<?php echo $Nom_tuteur_entreprise ;?> >
               </div>
 
 
@@ -188,10 +172,58 @@
                    <input type="submit" value="Envoyer">
             </div>
             <?php
-                $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
-                mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
-                $sql = "INSERT INTO RAPPORTS(Nom_etu,Prenom_etu,Mail_etu,Gamme_note,Domaines_info,Nom_entreprise,Secteur_entreprise,Date_stage,Pays_stage,Nom_tuteur_IUT,Nom_tuteur_entreprise,Valide,Dispo_pret,Prive) VALUES('$Nom_etu','$Prenom_etu','$Mail_etu',NULL,'$Gamme_note','$Domaine_info','$Nom_entreprise','$Secteur_entreprise','$Date_stage','$Pays_stage','$Nom_tuteur_IUT','$Nom_tuteur_entreprise',0,0,'$Prive')"; 
-        echo $sql;
+                if (isset($Nom_etu) 
+                    && isset($Prenom_etu) 
+                    && isset($Mail_etu) 
+                    && isset($Domaines_info) 
+                    && isset($Nom_entreprise) 
+                    && isset($Secteur_entreprise) 
+                    && isset($Date_stage) 
+                    && isset($Pays_stage) 
+                    && isset($Nom_tuteur_IUT) 
+                    && isset($Nom_tuteur_entreprise)
+                    && isset($Prive)){
+                    echo '<h2 class="recap"> Récapitulatif : </h2>';
+                    echo '<a class="recap">Votre nom : '.$Nom_etu.'</a></br>';
+                    echo '<a class="recap">Votre prénom : '.$Prenom_etu.'</a></br>';
+                    echo '<a class="recap">Votre mail : '.$Mail_etu.'</a></br>';
+                    echo '<a class="recap">Les domaines informatiques de votre stage : '.$Domaines_info.'</a></br>';
+                    echo '<a class="recap">Le nom de l\'entreprise où vous avez effectué votre stage : '.$Nom_entreprise.'</a></br>';
+                    echo '<a class="recap">Les secteurs d\'activité de cette entreprise : '.$Secteur_entreprise.'</a></br>';
+                    echo '<a class="recap">La date où vous avez commencé votre stage : '.$Date_stage.'</a></br>';
+                    echo '<a class="recap">Le pays où vous avez effectué votre stage : '.$Pays_stage.'</a></br>';
+                    echo '<a class="recap">Le nom de votre tuteur IUT : '.$Nom_tuteur_IUT.'</a></br>';
+                    echo '<a class="recap">Le nom de votre tuteur entreprise : '.$Nom_tuteur_entreprise.'</a></br>';
+                    echo '<a class="recap">Votre nom : '.$Nom_etu.'</a></br>';
+                    if ($Prive == 1){
+                        echo '<a class="recap">Vous souhaitez que ce rapport soit privé</a></br>';
+                    }
+                    
+                    
+                    $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
+                    mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
+                    $sql = "INSERT INTO RAPPORTS
+(Nom_etu,Prenom_etu,Mail_etu,Gamme_note,Domaines_info,Nom_entreprise,Secteur_entreprise,Date_stage,Pays_stage,Nom_tuteur_IUT,Nom_tuteur_entreprise,Valide,Dispo_pret,Prive)
+                            VALUES
+                                ('$Nom_etu',
+                                '$Prenom_etu',
+                                '$Mail_etu',
+                                NULL,
+                                '$Domaines_info',
+                                '$Nom_entreprise',
+                                '$Secteur_entreprise',
+                                '$Date_stage',
+                                '$Pays_stage',
+                                '$Nom_tuteur_IUT',
+                                '$Nom_tuteur_entreprise',
+                                0,
+                                0,
+                                '$Prive')"; 
+                    //mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error()); //
+                    mysql_close(); 
+                } else {
+                    echo 'Merci de remplir tous les champs';
+                }
             ?>
         </form>
     </body>
