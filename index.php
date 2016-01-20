@@ -11,47 +11,53 @@
         <link rel="stylesheet" href="style.css" type="text/css">
         <?php
             //INITIALISATION des valeurs
-            if (isset($_POST['reference'])){
-                $reference = $_POST['reference'];
-            }
             if (isset($_POST['Nom_etu'])){
                 $Nom_etu = $_POST['Nom_etu'];
+            } else {
+                $Nom_etu = '';
             }
             if (isset($_POST['Prenom_etu'])){
                 $Prenom_etu = $_POST['Prenom_etu'];
+            } else {
+                $Prenom_etu = '';
             }
             if (isset($_POST['Mail_etu'])){
                 $Mail_etu = $_POST['Mail_etu'];
-            }
-            if (isset($_POST['Gamme_note'])){
-                $Gamme_note = $_POST['Gamme_note'];
+            } else {
+                $Mail_etu = '';
             }
             if (isset($_POST['Domaines_info'])){
                 $Domaines_info = $_POST['Domaines_info'];
+            } else {
+                $Domaines_info = '';
             }
             if (isset($_POST['Nom_entreprise'])){
                 $Nom_entreprise = $_POST['Nom_entreprise'];
+            } else {
+                $Nom_entreprise = '';
             }
             if (isset($_POST['Secteur_entreprise'])){
                 $Secteur_entreprise = $_POST['Secteur_entreprise'];
+            } else {
+                $Secteur_entreprise = '';
             }
             if (isset($_POST['Date_stage'])){
                 $Date_stage = $_POST['Date_stage'];
             }
             if (isset($_POST['Pays_stage'])){
                 $Pays_stage = $_POST['Pays_stage'];
+            } else {
+                $Pays_stage = '';
             }
             if (isset($_POST['Nom_tuteur_IUT'])){
                 $Nom_tuteur_IUT = $_POST['Nom_tuteur_IUT'];
+            } else {
+                $Nom_tuteur_IUT = '';
             }
             if (isset($_POST['Nom_tuteur_entreprise'])){
                 $Nom_tuteur_entreprise = $_POST['Nom_tuteur_entreprise'];
-            }
-            if (isset($_POST['Valide'])){
-                $Valide = $_POST['Valide'];
-            }
-            if (isset($_POST['Dispo_pret'])){
-                $Dispo_pret = $_POST['Dispo_pret'];
+            } else {
+                $Nom_tuteur_entreprise = '';
             }
             if (isset($_POST['Prive'])){
                 $Prive = $_POST['Prive'];
@@ -59,61 +65,59 @@
             // FIN INIT //
         ?>
     </head>
-
-
     <body>
         <form method="POST" action="index.php" id = "formulaire">
            
            
-                <div id="field1-container" class="field f_100">
+                <div id="field1-container" class="champs">
                    <label for="field1">
                        Votre nom :</br>
                    </label>
-                   <input type="text" name="Nom_etu" id="field1" required="required" value=<?php echo $Nom_etu ;?> >
+                   <input type="text" name="Nom_etu" id="field1" maxlength="32" required="required" value=<?php echo $Nom_etu ;?> >
               </div>
 
 
-              <div id="field3-container" class="field f_100">
+              <div id="field3-container" class="champs">
                    <label for="field3">
                         Votre prénom :</br>
                    </label>
-                   <input type="text" name="Prenom_etu" id="field3" required="required" value=<?php echo $Prenom_etu ;?> >
+                   <input type="text" maxlength="32" name="Prenom_etu" id="field3" required="required" value=<?php echo $Prenom_etu ;?> >
               </div>
 
 
-              <div id="field6-container" class="field f_100">
+              <div id="field6-container" class="champs">
                    <label for="field6">
                         Votre adresse mail :</br>
                    </label>
-                   <input type="email" name="Mail_etu" id="field6" required="required" value=<?php echo $Mail_etu ;?> >
+                   <input type="email" maxlength="100" name="Mail_etu" id="field6" required="required" value=<?php echo $Mail_etu ;?> >
               </div>
 
 
-              <div id="field5-container" class="field f_100">
+              <div id="field5-container" class="champs">
                    <label for="field5">
-                        Le domaine informatique de votre stage :</br>
+                        Les domaines informatiques de votre stage (séparés par des espaces) :</br>
                    </label>
-                   <input type="text" name="Domaines_info" id="field5" required="required" value=<?php echo $Domaines_info ;?> >
+                   <input type="text" maxlength="100" name="Domaines_info" id="field5" required="required" value=<?php echo $Domaines_info ;?> >
               </div>
 
 
-              <div id="field7-container" class="field f_100">
+              <div id="field7-container" class="champs">
                    <label for="field7">
                         Le nom de l'entreprise où vous avez effectué votre stage :</br>
                    </label>
-                   <input type="text" name="Nom_entreprise" id="field7" required="required" value=<?php echo $Nom_entreprise ;?> >
+                   <input type="text" name="Nom_entreprise" id="field7" maxlength="50" required="required" value=<?php echo $Nom_entreprise ;?> >
               </div>
 
 
-              <div id="field8-container" class="field f_100">
+              <div id="field8-container" class="champs">
                    <label for="field8">
                         Les secteurs d'activité de l'entreprise (séparés par des espaces) :</br>
                    </label>
-                   <input type="text" name="Secteur_entreprise" id="field8" required="required" value=<?php echo $Secteur_entreprise ;?> >
+                   <input type="text" name="Secteur_entreprise" maxlength="100" id="field8" required="required" value=<?php echo $Secteur_entreprise ;?> >
               </div>
 
 
-              <div id="field9-container" class="field f_100">
+              <div id="field9-container" class="champs">
                    <label for="field9">
                         La date de début de votre stage :</br>
                    </label>
@@ -121,31 +125,31 @@
               </div>
 
 
-              <div id="field10-container" class="field f_100">
+              <div id="field10-container" class="champs">
                    <label for="field10">
                         Le pays où vous avez réalisé votre stage :</br>
                    </label>
-                   <input type="text" name="Pays_stage" id="field10" required="required" value=<?php echo $Pays_stage ;?> >
+                   <input type="text" maxlength="30" name="Pays_stage" id="field10" required="required" value=<?php echo $Pays_stage ;?> >
               </div>
 
 
-              <div id="field11-container" class="field f_100">
+              <div id="field11-container" class="champs">
                    <label for="field11">
                         Le nom de votre tuteur IUT :</br>
                    </label>
-                   <input type="text" name="Nom_tuteur_IUT" id="field11" required="required" value=<?php echo $Nom_tuteur_IUT ;?> >
+                   <input type="text" name="Nom_tuteur_IUT" id="field11" maxlength="100" required="required" value=<?php echo $Nom_tuteur_IUT ;?> >
               </div>
 
 
-              <div id="field12-container" class="field f_100">
+              <div id="field12-container" class="champs">
                    <label for="field12">
                         Le nom de votre tuteur en entreprise :</br>
                    </label>
-                   <input type="text" name="Nom_tuteur_entreprise" id="field12" required="required" value=<?php echo $Nom_tuteur_entreprise ;?> >
+                   <input type="text" name="Nom_tuteur_entreprise" maxlength="100" id="field12" required="required" value=<?php echo $Nom_tuteur_entreprise ;?> >
               </div>
 
 
-              <div id="field14-container" class="field f_100 radio-group required">
+              <div id="field14-container" class="champs radio-group required">
                    <label for="field14-1">
                         Visibilité de votre rapport :</br>
                    </label>
@@ -168,7 +172,7 @@
             </div>
 
 
-              <div id="form-submit" class="field f_100 clearfix submit">
+              <div id="form-submit" class="champs clearfix submit">
                    <input type="submit" value="Envoyer">
             </div>
             <?php
@@ -222,7 +226,7 @@
                     //mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error()); //
                     mysql_close(); 
                 } else {
-                    echo 'Merci de remplir tous les champs';
+                    echo '<a class="echec">Merci de remplir tous les champs</a>';
                 }
             ?>
         </form>

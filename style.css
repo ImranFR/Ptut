@@ -1,0 +1,42 @@
+html{
+    font-size: 2.2vh;
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+    background-image: url(Images/background.jpg);
+    background-size: cover;
+}
+
+
+a,h2{
+    display:block;
+    text-align: center;
+}
+
+table{
+    width:98vw; 
+    height:auto;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+    padding-left: 0vw;
+    padding-right: 0vw;
+    border-color: black;
+}
+
+.echec{
+    color: red;
+    text-align:center;
+}
+
+input{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    font-family: 'Roboto', sans-serif;
+    width: 15vw;   
+}
+input#field14-1,input#field14-2{
+    width: 2vw;
+}
+
+div.champs{
+    text-align: center;   
+}
