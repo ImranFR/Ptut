@@ -16,9 +16,6 @@ table{
     width:98vw; 
     height:auto;
     padding-bottom: 5vh;
-    padding-top: 5vh;
-    padding-left: 0vw;
-    padding-right: 0vw;
     border-color: black;
 }
 
@@ -39,4 +36,26 @@ input#field14-1,input#field14-2{
 
 div.champs{
     text-align: center;   
+}
+
+p.recapgauche{
+    text-align: right;   
+}
+
+p.recapcentre{
+    text-align:center;
+    vertical-align: middle; 
+}
+
+p.recapdroite{
+    text-align: left;   
+}
+
+td{
+    width: 49.5vw;   
+    vertical-align: middle;
+}
+
+td.centre{
+    width:1vw;   
 }

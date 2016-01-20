@@ -67,13 +67,19 @@
     </head>
     <body>
         <form method="POST" action="index.php" id = "formulaire">
+                <!--
+                     Formulaire généré par Webformgenerator by easyclick.ch
+                     www.easyclick.ch
+                -->
            
            
                 <div id="field1-container" class="champs">
                    <label for="field1">
                        Votre nom :</br>
                    </label>
-                   <input type="text" name="Nom_etu" id="field1" maxlength="32" required="required" value=<?php echo $Nom_etu ;?> >
+                    <?php
+                        echo '<input type="text" name="Nom_etu" id="field1" maxlength="32" required="required" value="'.$Nom_etu.'">';
+                   ?>
               </div>
 
 
@@ -81,7 +87,9 @@
                    <label for="field3">
                         Votre prénom :</br>
                    </label>
-                   <input type="text" maxlength="32" name="Prenom_etu" id="field3" required="required" value=<?php echo $Prenom_etu ;?> >
+                    <?php
+                        echo '<input type="text" maxlength="32" name="Prenom_etu" id="field3" required="required" value="'.$Prenom_etu.'">';
+                    ?>
               </div>
 
 
@@ -89,7 +97,9 @@
                    <label for="field6">
                         Votre adresse mail :</br>
                    </label>
-                   <input type="email" maxlength="100" name="Mail_etu" id="field6" required="required" value=<?php echo $Mail_etu ;?> >
+                    <?php
+                        echo '<input type="email" maxlength="100" name="Mail_etu" id="field6" required="required" value="'.$Mail_etu.'">';
+                    ?>
               </div>
 
 
@@ -97,7 +107,9 @@
                    <label for="field5">
                         Les domaines informatiques de votre stage (séparés par des espaces) :</br>
                    </label>
-                   <input type="text" maxlength="100" name="Domaines_info" id="field5" required="required" value=<?php echo $Domaines_info ;?> >
+                    <?php
+                        echo '<input type="text" maxlength="100" name="Domaines_info" id="field5" required="required" value="'.$Domaines_info.'">'
+                    ?>
               </div>
 
 
@@ -105,7 +117,9 @@
                    <label for="field7">
                         Le nom de l'entreprise où vous avez effectué votre stage :</br>
                    </label>
-                   <input type="text" name="Nom_entreprise" id="field7" maxlength="50" required="required" value=<?php echo $Nom_entreprise ;?> >
+                    <?php
+                        echo '<input type="text" name="Nom_entreprise" id="field7" maxlength="50" required="required" value="'.$Nom_entreprise.'">';
+                    ?>
               </div>
 
 
@@ -113,7 +127,9 @@
                    <label for="field8">
                         Les secteurs d'activité de l'entreprise (séparés par des espaces) :</br>
                    </label>
-                   <input type="text" name="Secteur_entreprise" maxlength="100" id="field8" required="required" value=<?php echo $Secteur_entreprise ;?> >
+                    <?php
+                        echo '<input type="text" name="Secteur_entreprise" maxlength="100" id="field8" required="required" value="'.$Secteur_entreprise.'">';
+                    ?>
               </div>
 
 
@@ -121,7 +137,9 @@
                    <label for="field9">
                         La date de début de votre stage :</br>
                    </label>
-                   <input type="date" name="Date_stage" value=<?php echo $Date_stage ;?> >
+                    <?php
+                        echo '<input type="date" name="Date_stage" value="'.$Date_stage.'">';
+                    ?>
               </div>
 
 
@@ -129,7 +147,9 @@
                    <label for="field10">
                         Le pays où vous avez réalisé votre stage :</br>
                    </label>
-                   <input type="text" maxlength="30" name="Pays_stage" id="field10" required="required" value=<?php echo $Pays_stage ;?> >
+                    <?php
+                        echo '<input type="text" maxlength="30" name="Pays_stage" id="field10" required="required" value="'.$Pays_stage.'">';
+                    ?>
               </div>
 
 
@@ -137,7 +157,9 @@
                    <label for="field11">
                         Le nom de votre tuteur IUT :</br>
                    </label>
-                   <input type="text" name="Nom_tuteur_IUT" id="field11" maxlength="100" required="required" value=<?php echo $Nom_tuteur_IUT ;?> >
+                    <?php
+                        echo '<input type="text" name="Nom_tuteur_IUT" id="field11" maxlength="100" required="required" value="'.$Nom_tuteur_IUT.'">';
+                    ?>
               </div>
 
 
@@ -145,7 +167,9 @@
                    <label for="field12">
                         Le nom de votre tuteur en entreprise :</br>
                    </label>
-                   <input type="text" name="Nom_tuteur_entreprise" maxlength="100" id="field12" required="required" value=<?php echo $Nom_tuteur_entreprise ;?> >
+                    <?php
+                        echo '<input type="text" name="Nom_tuteur_entreprise" maxlength="100" id="field12" required="required" value="'.$Nom_tuteur_entreprise.'">';
+                    ?>
               </div>
 
 
@@ -187,21 +211,112 @@
                     && isset($Nom_tuteur_IUT) 
                     && isset($Nom_tuteur_entreprise)
                     && isset($Prive)){
-                    echo '<h2 class="recap"> Récapitulatif : </h2>';
-                    echo '<a class="recap">Votre nom : '.$Nom_etu.'</a></br>';
-                    echo '<a class="recap">Votre prénom : '.$Prenom_etu.'</a></br>';
-                    echo '<a class="recap">Votre mail : '.$Mail_etu.'</a></br>';
-                    echo '<a class="recap">Les domaines informatiques de votre stage : '.$Domaines_info.'</a></br>';
-                    echo '<a class="recap">Le nom de l\'entreprise où vous avez effectué votre stage : '.$Nom_entreprise.'</a></br>';
-                    echo '<a class="recap">Les secteurs d\'activité de cette entreprise : '.$Secteur_entreprise.'</a></br>';
-                    echo '<a class="recap">La date où vous avez commencé votre stage : '.$Date_stage.'</a></br>';
-                    echo '<a class="recap">Le pays où vous avez effectué votre stage : '.$Pays_stage.'</a></br>';
-                    echo '<a class="recap">Le nom de votre tuteur IUT : '.$Nom_tuteur_IUT.'</a></br>';
-                    echo '<a class="recap">Le nom de votre tuteur entreprise : '.$Nom_tuteur_entreprise.'</a></br>';
-                    echo '<a class="recap">Votre nom : '.$Nom_etu.'</a></br>';
-                    if ($Prive == 1){
-                        echo '<a class="recap">Vous souhaitez que ce rapport soit privé</a></br>';
-                    }
+                        echo '<h2 class="recap"> Récapitulatif : </h2>';
+                        echo '<table>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Votre nom ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Nom_etu.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Votre prénom ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Prenom_etu.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Votre mail ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Mail_etu.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Les domaines informatiques de votre stage  ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Domaines_info.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> La date où vous avez commencé votre stage  ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Date_stage.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Le pays où vous avez effectué votre stage  ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Pays_stage.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Le nom de votre tuteur IUT  ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Nom_tuteur_IUT.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                            echo '<tr>';
+                                echo '<td>';
+                                    echo '<p class="recapgauche"> Le nom de votre tuteur entreprise  ';
+                                echo '</td>';
+                                echo '<td class="centre">';
+                                    echo '<p class="recapcentre">:</p>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<p class="recapdroite">'.$Nom_tuteur_entreprise.'</p>';
+                                echo '</td>';
+                            echo '</tr>';
+                                echo '<tr>';
+                                    echo '<td>';
+                                        echo '<p class="recapgauche"> La confidentialité de votre rapport est fixée sur';
+                                    echo '</td>';
+                                    echo '<td class="centre">';
+                                        echo '<p class="recapcentre">:</p>';
+                                    echo '</td>';
+                                    echo '<td>';
+                                    if ($Prive == 1){
+                                        echo '<p class="recapdroite">Privé</p>';
+                                    } else {
+                                        echo '<p class="recapdroite">Publique</p>';
+                                    }
+                                    echo '</td>';
+                                echo '</tr>';
+                    echo '</table>';
                     
                     
                     $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
@@ -223,10 +338,11 @@
                                 0,
                                 0,
                                 '$Prive')"; 
+                    
                     //mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error()); //
                     mysql_close(); 
                 } else {
-                    echo '<a class="echec">Merci de remplir tous les champs</a>';
+                    echo '<p class="echec">Merci de remplir tous les champs</p>';
                 }
             ?>
         </form>
