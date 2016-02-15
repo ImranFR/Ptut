@@ -1,12 +1,13 @@
 regex pour voir si mail finit par univ-lyon1.fr						FAIT
-créer page admin
-créer page avec les filtres								A FINIR
+crÃ©er page admin
+crÃ©er page avec les filtres								A FINIR
+crÃ©er page individuelle pour les rapports
 ajouter champ "gamme_note" sur la page admin (au lieu du login)
 supprimer table entreprise								FAIT
-tri : année / matière / note								FAIT
+tri : annÃ©e / matiÃ¨re / note								FAIT
 ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte
 
-Infos à afficher 
-Durée d'emprunt max (10 jours)
-Date de prêt et de retour à entrer manuellement
+Infos Ã  afficher 
+DurÃ©e d'emprunt max (10 jours)
+Date de prÃªt et de retour Ã  entrer manuellement
 Possible d'afficher les rapports en retard
