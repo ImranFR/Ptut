@@ -1,13 +1,17 @@
 regex pour voir si mail finit par univ-lyon1.fr						FAIT
-crÃ©er page admin
-crÃ©er page avec les filtres								A FINIR
-crÃ©er page individuelle pour les rapports
+créer page admin
+créer page avec les filtres								FAIT
+créer page individuelle pour les rapports						FAIT
 ajouter champ "gamme_note" sur la page admin (au lieu du login)
 supprimer table entreprise								FAIT
-tri : annÃ©e / matiÃ¨re / note								FAIT
+tri : année / matière / note								FAIT
 ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte
+créer une page d'accueil et gérer les liens entre les pages				FAIT
 
-Infos Ã  afficher 
-DurÃ©e d'emprunt max (10 jours)
-Date de prÃªt et de retour Ã  entrer manuellement
+Infos à afficher 
+Durée d'emprunt max (10 jours)
+Date de prêt et de retour à entrer manuellement
 Possible d'afficher les rapports en retard
+
+
+/!\ Reremplir la table avec les valeurs de http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/remplissage.php /!\

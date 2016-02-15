@@ -87,6 +87,11 @@
         ?>
     </head>
     <body>
+        <header>
+            <a href="./index.php">Accueil</a>
+            <a href="./ajout.php">Ajout d'un rapport</a>
+            <a href="./tri.php">Recherche de rapport</a>
+        </header>
         <?php
                 if (isset($Nom_etu) 
                     && isset($Prenom_etu) 
@@ -237,12 +242,12 @@
                         } else {
                             echo '<p class="echec">Merci de rentrer un mail valide</p>';
                             echo '<p class="echec">Merci de remplir tous les champs</p></br>';
-                            echo '<a href="index.php">Retour</a>';
+                            echo '<a href="ajout.php">Retour</a>';
                             mysql_close($db);
                         }
                 } else {
                     echo '<p class="echec">Merci de remplir tous les champs</p></br>';
-                    echo '<a href="index.php">Retour</a>';
+                    echo '<a href="ajout.php">Retour</a>';
                     mysql_close($db);
                 }
             ?>
