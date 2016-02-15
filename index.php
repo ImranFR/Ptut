@@ -78,9 +78,7 @@
                    <label for="field1">
                        Votre nom :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" name="Nom_etu" id="field1" maxlength="32" required="required" value="'.$Nom_etu.'">';
-                   ?>
+                        <input type="text" name="Nom_etu" id="field1" maxlength="32" required="required" value="<?php echo $Nom_etu; ?>">
               </div>
 
 
@@ -88,9 +86,7 @@
                    <label for="field3">
                         Votre prénom :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" maxlength="32" name="Prenom_etu" id="field3" required="required" value="'.$Prenom_etu.'">';
-                    ?>
+                        <input type="text" maxlength="32" name="Prenom_etu" id="field3" required="required" value="<?php echo $Prenom_etu; ?>">
               </div>
 
 
@@ -98,9 +94,7 @@
                    <label for="field6">
                         Votre adresse mail :</br>
                    </label>
-                    <?php
-                        echo '<input type="email" maxlength="100" name="Mail_etu" id="field6" required="required" value="'.$Mail_etu.'">';
-                    ?>
+                        <input type="email" maxlength="100" name="Mail_etu" id="field6" required="required" value="<?php echo $Mail_etu; ?>"> 
               </div>
 
 
@@ -108,9 +102,7 @@
                    <label for="field5">
                         Les domaines informatiques de votre stage (séparés par des espaces) :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" maxlength="100" name="Domaines_info" id="field5" required="required" value="'.$Domaines_info.'">'
-                    ?>
+                        <input type="text" maxlength="100" name="Domaines_info" id="field5" required="required" value="<?php echo $Domaines_info; ?>">
               </div>
 
 
@@ -118,9 +110,7 @@
                    <label for="field7">
                         Le nom de l'entreprise où vous avez effectué votre stage :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" name="Nom_entreprise" id="field7" maxlength="50" required="required" value="'.$Nom_entreprise.'">';
-                    ?>
+                        <input type="text" name="Nom_entreprise" id="field7" maxlength="50" required="required" value="<?php echo $Nom_entreprise; ?>">
               </div>
 
 
@@ -128,9 +118,7 @@
                    <label for="field8">
                         Les secteurs d'activité de l'entreprise (séparés par des espaces) :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" name="Secteur_entreprise" maxlength="100" id="field8" required="required" value="'.$Secteur_entreprise.'">';
-                    ?>
+                        <input type="text" name="Secteur_entreprise" maxlength="100" id="field8" required="required" value="<?php echo $Secteur_entreprise; ?>">
               </div>
 
 
@@ -140,7 +128,9 @@
                    </label>
                     <?php
                         if (isset($Date_stage)){
-                            echo '<input type="date" name="Date_stage" value="'.$Date_stage.'">';
+                            ?>
+                            <input type="date" name="Date_stage" value="<?php echo $Date_stage; ?>">
+                            <?php
                         } else {
                             echo '<input type="date" name="Date_stage">';
                         }
@@ -152,9 +142,7 @@
                    <label for="field10">
                         Le pays où vous avez réalisé votre stage :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" maxlength="30" name="Pays_stage" id="field10" required="required" value="'.$Pays_stage.'">';
-                    ?>
+                        <input type="text" maxlength="30" name="Pays_stage" id="field10" required="required" value="<?php echo $Pays_stage; ?>">
               </div>
 
 
@@ -162,9 +150,7 @@
                    <label for="field11">
                         Le nom de votre tuteur IUT :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" name="Nom_tuteur_IUT" id="field11" maxlength="100" required="required" value="'.$Nom_tuteur_IUT.'">';
-                    ?>
+                        <input type="text" name="Nom_tuteur_IUT" id="field11" maxlength="100" required="required" value="<?php echo $Nom_tuteur_IUT; ?>">
               </div>
 
 
@@ -172,9 +158,7 @@
                    <label for="field12">
                         Le nom de votre tuteur en entreprise :</br>
                    </label>
-                    <?php
-                        echo '<input type="text" name="Nom_tuteur_entreprise" maxlength="100" id="field12" required="required" value="'.$Nom_tuteur_entreprise.'">';
-                    ?>
+                        <input type="text" name="Nom_tuteur_entreprise" maxlength="100" id="field12" required="required" value="<?php echo $Nom_tuteur_entreprise; ?>">
               </div>
 
 
