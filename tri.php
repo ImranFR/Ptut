@@ -16,6 +16,12 @@
                 $tri = '';
             }
             
+            if (isset ($_GET['disponible'])){
+                $disponible = 1;
+            } else {
+                $disponible = 0;
+            }
+            
             $requete = "SELECT * FROM RAPPORTS ".$tri."";
         ?>
     </head>
@@ -27,7 +33,10 @@
                 <option value="Gamme_note">Note</option>
                 <option value="Dispo_pret">Disponibilité</option>
             </select>
-            
+            <label for="disponible">
+                Afficher uniquement les rapports disponibles
+            </label>
+            <input type="checkbox" id="disponible" name="disponible[]">
             <input type="submit">
         </form>
         <?php

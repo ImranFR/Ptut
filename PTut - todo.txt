@@ -1,9 +1,9 @@
-regex pour voir si mail finit par univ-lyon1.fr				FAIT
+regex pour voir si mail finit par univ-lyon1.fr						FAIT
 créer page admin
-créer page avec les filtres
+créer page avec les filtres								A FINIR
 ajouter champ "gamme_note" sur la page admin (au lieu du login)
-supprimer table entreprise
-tri : année / matière / note
+supprimer table entreprise								FAIT
+tri : année / matière / note								FAIT
 ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte
 
 Infos à afficher 
