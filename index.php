@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="style.css" type="text/css">
         <?php
             //INITIALISATION des valeurs
+            $regex = "@etu.univ-lyon1.fr$";
             if (isset($_POST['Nom_etu'])){
                 $Nom_etu = $_POST['Nom_etu'];
             } else {

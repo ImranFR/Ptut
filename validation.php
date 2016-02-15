@@ -10,6 +10,7 @@
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="style.css" type="text/css">
         <?php
+            $regex = "@etu.univ-lyon1.fr$";
             $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
             mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
             //INITIALISATION des valeurs
@@ -98,6 +99,7 @@
                     && isset($Nom_tuteur_IUT) 
                     && isset($Nom_tuteur_entreprise)
                     && isset($Prive)){
+                        if (ereg($regex,$Mail_etu)){
                         echo '<h2 class="recap"> Récapitulatif : </h2>';
                         echo '<table>';
                             echo '<tr>';
@@ -231,8 +233,13 @@
                         exit;
                     }
                     echo "<a href='validation.php?update=true'>Valider</a>";
-                        
                     mysql_close($db); 
+                        } else {
+                            echo '<p class="echec">Merci de rentrer un mail valide</p>';
+                            echo '<p class="echec">Merci de remplir tous les champs</p></br>';
+                            echo '<a href="index.php">Retour</a>';
+                            mysql_close($db);
+                        }
                 } else {
                     echo '<p class="echec">Merci de remplir tous les champs</p></br>';
                     echo '<a href="index.php">Retour</a>';
