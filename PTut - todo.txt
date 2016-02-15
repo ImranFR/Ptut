@@ -1,0 +1,11 @@
+regex pour voir si mail finit par univ-lyon1.fr				FAIT
+créer page admin
+créer page avec les filtres
+ajouter champ "gamme_note" sur la page admin (au lieu du login)
+supprimer table entreprise
+tri : année / matière / note
+
+Infos à afficher 
+Durée d'emprunt max (10 jours)
+Date de prêt et de retour à entrer manuellement
+Possible d'afficher les rapports en retard
