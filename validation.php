@@ -91,6 +91,7 @@
             <a href="./index.php">Accueil</a>
             <a href="./ajout.php">Ajout d'un rapport</a>
             <a href="./tri.php">Recherche de rapport</a>
+            <a href="./admin.php">Page administrateur</a>
         </header>
         <?php
                 if (isset($Nom_etu) 
