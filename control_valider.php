@@ -23,10 +23,33 @@
 		$query->closeCursor();
 	}
 	
-	$bdd = connect
+	function getRapportsNV() {
+		$bdd = Connect_db();
+		$query = $bdd->prepare('SELECT Reference, Nom_etu, Prenom_etu, Nom_tuteur_IUT FROM RAPPORTS R WHERE R.Valide = 0');
+		$query->execute();
+		
+		$map = array();
+		
+		while($data = $query->fetch()) {
+			$map[] = array(
+				'Reference' => $data['Reference'],
+				'Nom_etu' => $data['Nom_etu'],
+				'Prenom_etu' => $data['Prenom_etu'],
+				'Nom_tuteur_IUT' => $data['Nom_tuteur_IUT']);
+		}
+		$query->closeCursor();
+		
+		return $map;
+	}
+	
+	$data = getRapportsNV();
 	if(isset($_POST['cbvar'])) {
-		for($i = 0; $i < count($_POST['cbvar']); $i++){
-		  
+		$cbvar = $_POST['cbvar'];
+		for($i = 0; $i < count($cbvar); $i++){
+			if(in_array($i, $cbvar)) {
+				validerRapport($data[$i]['Reference']);
+				print_r('OK');
+			}
 		}
 		
 	}

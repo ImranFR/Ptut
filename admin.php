@@ -64,17 +64,19 @@ function getRapportsPret() {
             <a href="./tri.php">Recherche de rapport</a>
             <a href="./admin.php">Page administrateur</a>
         </header>
-		<form method="POST">
+		<form method="POST" action="control_valider.php">
 			<?php 
 				$map = getRapportsNV();
+				$i = 0;
 				if(isset($map)) {
 					foreach($map as $data) {
 						print_r($data['Nom_etu']);
                         print_r($data['Prenom_etu']);
                         print_r($data['Nom_tuteur_IUT']);
 						?>
-							<input type="checkbox" name="cbvar" value="Supprimer">Valider<br/>
+							<input type="checkbox" name="cbvar[]" value="<?php echo $i; ?>">Valider<br/>
 						<?php
+						$i++;
 					}
 				}
 			?>
