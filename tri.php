@@ -10,6 +10,16 @@
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="style.css" type="text/css">
         <?php
+            $regex = "/&page=/";
+            if (isset($_GET['note_user'])){
+                $note_user = $_GET['note_user'];
+                $gamme_note_user = 3;
+                if ($note_user<=7){
+                    $gamme_note_user = 1;
+                } else if ($note_user <= 13){
+                    $gamme_note_user = 2;
+                }
+            }
             if (isset($_GET['tri']) && ($_GET['tri'] != 'default')){
                 $tri = 'ORDER BY '.$_GET['tri'];
             } else {
@@ -29,6 +39,14 @@
                 }
             }
         
+            if (isset ($gamme_note_user)){
+                if (isset ($where)){
+                    $where .= "AND Gamme_note >= ".$gamme_note_user." ";
+                } else {
+                    $where = "WHERE Gamme_note >= ".$gamme_note_user." ";
+                }
+            }
+        
             if (isset ($_GET['nom_entreprise']) && $_GET['nom_entreprise'] != ''){
                 $nom_entreprise = $_GET['nom_entreprise'];
                 if (isset ($where)){
@@ -43,19 +61,45 @@
             if (isset ($_GET['nom_tuteur_iut']) && $_GET['nom_tuteur_iut'] != ''){
                 $nom_tuteur_iut = $_GET['nom_tuteur_iut'];
                 if (isset ($where)){
-                    $where .= "AND Nom_tuteur_IUT LIKE \"%".$nom_tuteur_iut."%\"";
+                    $where .= "AND Nom_tuteur_IUT LIKE \"%".$nom_tuteur_iut."%\" ";
                 } else {
-                    $where = "WHERE Nom_tuteur_IUT LIKE \"%".$nom_tuteur_iut."%\"";
+                    $where = "WHERE Nom_tuteur_IUT LIKE \"%".$nom_tuteur_iut."%\" ";
                 }
             } else {
                 $nom_tuteur_iut = '';
             } 
         
+            if (isset ($_GET['nb_rapports']) && $_GET['nb_rapports'] != ''){
+                $nb_rapports = $_GET['nb_rapports'];
+                $limite = "LIMIT ".$nb_rapports."";
+            } else {
+                $limite = '';
+                $nb_rapports = 1000;
+            } 
+        
+        
+            if (isset ($_GET['page']) && $_GET['page'] != ''){
+                $page = $_GET['page'];
+                $page_offset = $page * $nb_rapports;
+                $limite .= " OFFSET ".$page_offset."";
+            } 
+        
+        
+        
             if (isset($where)){
                 $requete = "SELECT * FROM RAPPORTS ".$where."".$tri."";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS ".$where."".$tri."";
             } else {
                 $requete = "SELECT * FROM RAPPORTS ".$tri."";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS ".$tri."";
             }
+        
+            if (isset($limite)){
+                $requete .= " ".$limite."";
+            }
+           /* echo $requete;
+            echo '</br>';
+            echo $requete_count;*/
         ?>
     </head>
     <body>
@@ -83,6 +127,8 @@
                     
                         <td><input type="text" name="nom_entreprise" placeholder="Nom de l'entreprise..." value="<?php echo $nom_entreprise; ?>"></td>
                         <td><input type="text" name="nom_tuteur_iut" placeholder="Tuteur IUT" value="<?php echo $nom_tuteur_iut; ?>"></td>
+                        <td><input type="number" name="note_user" placeholder="Note minimale" value="<?php echo $note_user; ?>"></td>
+                        <td><input type="number" name="nb_rapports" placeholder="Nombre de rapports..." value="<?php echo $nb_rapports; ?>"></td>
                         
                         <td><label for="disponible">
                             Afficher uniquement les rapports disponibles
@@ -95,23 +141,8 @@
                         } else {
                                 ?>
                         <input type="checkbox" id="disponible" name="disponible[]"></td>
-                        <?php } ?>
-                        
-                        
-                        
-                        <td><label for="public">
-                            Afficher uniquement les rapports publics
-                        </label>
-                            
-                        <?php
-                            if (isset($_GET['public'])){
-                                ?>
-                                <input type="checkbox" id="public" name="public[]" checked></td>
-                                <?php    
-                        } else {
-                                ?>
-                        <input type="checkbox" id="public" name="public[]"></td>
-                        <?php } ?>
+                        <?php }
+                            ?>
 
                     </tr>
                     <tr>
@@ -137,11 +168,11 @@
                         <td><em>Pays</em></td>
                         <td><em>Tuteur IUT</em></td>
                         <td><em>Disponibilité</em></td>
-                        <td><em>Confidentialité</em></td>
                         <td><em>Lien</em></td>
                     </thead>
             <?php
-                 while($rapport = mysql_fetch_array($liste_rapports)) {
+                $j = 0;
+                while(($rapport = mysql_fetch_array($liste_rapports)) && ($j < $nb_rapports)) {
             ?>
                 <tr>
                     <td><?php echo $rapport['Nom_etu']?></td>
@@ -165,24 +196,42 @@
                         <td>Indisponible</td> 
                     <?php
                     }
-                    if ($rapport['Prive'] == 0){
-                        ?>
-                        <td>Public</td>
-                        <?php
-                    } else {
-                    ?>
-                        <td>Privé</td>
-                    <?php
-                    } 
                     
                     ?>
                     <td><a href="<?php echo "http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/rapport.php?reference=".$rapport['Reference'] ?>">Accéder</a> </td>
                 </tr>
 
             <?php
+                $j++;
             }
-            mysql_close($db);
-        ?>
-        </table>
+            $linkraw = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            $link = substr($linkraw, 0, strrpos($linkraw, "&page="));         //On enlève la page actuelle de l'URL
+            
+            $reponse = mysql_query($requete_count) or die('Erreur SQL !<br>'.mysql_error());
+            $nb_rapports_table = mysql_fetch_assoc($reponse,0);  
+            //echo $nb_rapports_table['reference'];
+                    
+            ?>
+            </table>  
+            <table id="table_href">
+                <tr>
+                    <?php
+
+                    $i = 1;
+                    while ($i < ($nb_rapports_table['reference'] / $nb_rapports)){
+                        $k = $i-1;
+                        if (preg_match($regex,$linkraw)){
+                            echo '<td><a href="'.$link.'&page='.$k.'">'.$i.'</a></td>';
+                        } else {
+                            echo '<td><a href="'.$linkraw.'&page='.$k.'">'.$i.'</a></td>';
+                        }
+                        $i++;
+                    }
+
+                    mysql_close($db);
+
+                    ?>
+                </tr>
+            </table>
     </body>
 </html>

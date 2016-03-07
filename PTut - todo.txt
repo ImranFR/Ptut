@@ -26,3 +26,30 @@ Date de prêt et de retour à entrer manuellement
 
 Possible d'afficher les rapports en retard
 
+
+
+===============================
+
+Ne pas afficher les rapports privés aux utilisateurs , seulement à l'admin		FAIT (sauf admin)
+Attribuer une note à un rapport pendant la validation 
+Afficher un nombre limité de rapports sur 1 page					FAIT 
+Filtre par note en plus du tri 								FAIT
+Checkbox pays in/out France 								(on oublie, chiant à faire et useless)
+Tableau de rapports sortis affiché sur la page admin, rapports en retard doivent (pouvoir) être mis en avant
+Emprunt enregistré automatiquement : nom et date
+Retour validé par l'admin via la page 
+Mail envoyé automatiquement à l'admin quand un étudiant réserve si il vient pas après 1-2 jours 
+Étudiant rentre sa date estimée de retour
+Prévoir par rapport à 'l'hébergement futur (BD et serveur)
+
+
+ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte
+
+
+
+
+Next RDV: 
+8 mars 13h 
+24mars final
+
+===================================
