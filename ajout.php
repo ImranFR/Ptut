@@ -105,7 +105,7 @@
 
               <div id="field5-container" class="champs">
                    <label for="field5">
-                        Les domaines informatiques de votre stage (séparés par des espaces) :</br>
+                        Les domaines informatiques de votre stage (séparés par des virgules) :</br>
                    </label>
                         <input type="text" maxlength="100" name="Domaines_info" id="field5" required="required" value="<?php echo $Domaines_info; ?>">
               </div>
