@@ -86,13 +86,38 @@
         
         
         
-            if (isset($where)){
-                $requete = "SELECT * FROM RAPPORTS ".$where."".$tri."";
-                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS ".$where."".$tri."";
+        
+            //Gestion des domaines
+        
+            if (isset ($_GET['domaines']) && $_GET['domaines'] != ''){
+                $domaines = $_GET['domaines'];
+                $liste_domaines = explode(",",$domaines);
+                if (isset ($where)){
+                    foreach($liste_domaines as $domaine){
+                        $where .= "AND K.KEYWORD LIKE \"%".$domaine."%\" ";
+                    }
+                } else {
+                    foreach($liste_domaines as $domaine){
+                        $where .= "WHERE K.KEYWORD LIKE \"%".$domaine."%\" ";
+                    }
+                }
             } else {
-                $requete = "SELECT * FROM RAPPORTS ".$tri."";
-                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS ".$tri."";
+                $domaines = '';
             }
+        
+            //Fin gestion des domaines
+        
+            if (isset($where)){
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS, KEYWORDS K ".$where."".$tri."";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS, KEYWORDS K ".$where."".$tri."";
+            } else {
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS, KEYWORDS K ".$tri."";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS, KEYWORDS K ".$tri."";
+            }
+        
+        
+        
+        
         
             if (isset($limite)){
                 $requete .= " ".$limite."";
@@ -100,6 +125,10 @@
            /* echo $requete;
             echo '</br>';
             echo $requete_count;*/
+        
+        
+        
+            
         ?>
     </head>
     <body>
@@ -129,6 +158,7 @@
                         <td><input type="text" name="nom_tuteur_iut" placeholder="Tuteur IUT" value="<?php echo $nom_tuteur_iut; ?>"></td>
                         <td><input type="number" name="note_user" placeholder="Note minimale" value="<?php echo $note_user; ?>"></td>
                         <td><input type="number" name="nb_rapports" placeholder="Nombre de rapports..." value="<?php echo $nb_rapports; ?>"></td>
+                        <td><input type="text" name="domaines" placeholder="Domaines (séparés par des virgules)..." value="<?php echo $domaines; ?>"></td>
                         
                         <td><label for="disponible">
                             Afficher uniquement les rapports disponibles
@@ -154,7 +184,8 @@
         <?php
             $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
                 mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
-            $liste_rapports = mysql_query($requete) or die('Erreur SQL !'.$liste_rapports.'<br>'.mysql_error());
+            $liste_rapports = mysql_query($requete) or die('Erreur SQL !'.$requete.'<br>'.mysql_error());
+            
             ?>
                 <table id="table_rapports">
                     <thead>
@@ -178,7 +209,23 @@
                     <td><?php echo $rapport['Nom_etu']?></td>
                     <td><?php echo $rapport['Prenom_etu']?></td> 
                     <td><?php echo $rapport['Gamme_note']?></td>
-                    <td><?php echo $rapport['Domaines_info']?></td>
+                    <td><table>
+                        <?php
+                            $sql_keywords = "SELECT KEYWORD FROM KEYWORDS WHERE Reference = 1";
+                            $mots_cles = mysql_query($sql_keywords) or die('Erreur SQL ! '.$sql_keywords.'<br>'.mysql_error());
+
+                            while ($row=mysql_fetch_array($mots_cles)){ 
+                                ?> 
+                                <td>
+                                <?php
+                                
+                                    echo $row['KEYWORD'];
+                                
+                                ?>                               
+                                </td>
+                            <?php
+                            }
+                        ?>
                     <td><?php echo $rapport['Nom_entreprise']?></td> 
                     <td><?php echo $rapport['Secteur_entreprise']?></td>
                     <td><?php echo $rapport['Date_stage']?></td>
@@ -207,7 +254,7 @@
             $linkraw = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
             $link = substr($linkraw, 0, strrpos($linkraw, "&page="));         //On enlève la page actuelle de l'URL
             
-            $reponse = mysql_query($requete_count) or die('Erreur SQL !<br>'.mysql_error());
+            $reponse = mysql_query($requete_count) or die('Erreur SQL !'.$reponse.'<br>'.mysql_error());
             $nb_rapports_table = mysql_fetch_assoc($reponse,0);  
             //echo $nb_rapports_table['reference'];
                     

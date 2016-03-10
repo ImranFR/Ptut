@@ -44,7 +44,6 @@
             }
             if (isset($_SESSION['Domaines_info'])){
                 $Domaines_info = $_SESSION['Domaines_info'];
-                $Domaines_info = "chaine, de, caractères";
                 $liste_domaines = explode(",",$Domaines_info);
             } else {
                 $Domaines_info = '';
@@ -244,21 +243,23 @@
                                 
                                 
                                 
-                                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());         //On ajoute le rapport à la table rapport
+                                mysql_query($sql) or die('Erreur SQL ! '.$sql.'<br>'.mysql_error());         //On ajoute le rapport à la table rapport
                                 
                                 
                                 
-                                $sql = "SELECT Reference FROM RAPPORTS WHERE Nom_etu = '$Nom_etu'                
-                                                AND Prenom_etu = '$Prenom_etu'
-                                                AND Mail_etu = '$Mail_etu'";                             //Récupération de la référence du rapport ajouté
-                                $ref = mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error()); 
+                                
+                                
                                 foreach($liste_domaines as $domaine){                                       //Pour chacun des domaines entrés par l'utilisateur,...
-                                    $requete_keywords += "(".$ref.",'".$domaine."'),";                      //On build la requete d'ajout dans la table KEYWORDS
+                                    $requete_keywords .= "(".$refmax.",'".$domaine."') ,";                      //On build la requete d'ajout dans la table KEYWORDS
                                 }
-                                rtrim($requete_keywords,",");                                               //On enlève la dernière virgule pour la remplacer par un point-virgule
-                                $requete_keywords += ";";
                                 
-                                mysql_query($requete_keywords) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                                
+                                $requete_keywords[strlen($requete_keywords) - 1] = "";                                               //On enlève la dernière virgule pour la remplacer par un point-virgule
+                                echo $requete_keywords;
+                                echo '<br><br>';
+                                $requete_keywords .= ";";
+                                
+                                mysql_query($requete_keywords) or die('Erreur SQL !'.$requete_keywords.'<br>'.mysql_error());
                                 
                                 
                                 header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/ajout_valide.html');
