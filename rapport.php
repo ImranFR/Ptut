@@ -27,7 +27,7 @@
             if (isset($reference)){
                 $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
                 mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
-                $liste_rapports = mysql_query('SELECT * FROM RAPPORTS WHERE Reference = "'.$reference.'"') or die('Erreur SQL !'.$liste_rapports.'<br>'.mysql_error());
+                $liste_rapports = mysql_query('SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference WHERE RAPPORTS.Reference = "'.$reference.'" GROUP BY RAPPORTS.Reference') or die('Erreur SQL !'.$liste_rapports.'<br>'.mysql_error());
                 ?>
                 <table id="table_rapports">
                     <thead>
@@ -43,7 +43,6 @@
                         <td><em>Pays</em></td>
                         <td><em>Tuteur IUT</em></td>
                         <td><em>Tuteur Entreprise</em></td>
-                        <td><em>Disponibilité</em></td>
                         <td><em>Confidentialité</em></td>
                         <td><em>Réservation</em></td>
                     </thead>
@@ -57,25 +56,32 @@
                     <td><?php echo $rapport['Prenom_etu']?></td> 
                     <td><?php echo $rapport['Mail_etu']?></td>
                     <td><?php echo $rapport['Gamme_note']?></td>
-                    <td><?php echo $rapport['Domaines_info']?></td>
+                    <td>
+                            <?php
+                                $sql_keywords = "SELECT KEYWORD FROM KEYWORDS WHERE Reference = ".$rapport['Reference']."";
+                                $mots_cles = mysql_query($sql_keywords) or die('Erreur SQL ! '.$sql_keywords.'<br>'.mysql_error());
+                                $liste_domaines = '';
+                                while ($row=mysql_fetch_array($mots_cles)){ 
+                                    ?> 
+                                    <?php
+
+                                        $liste_domaines .= $row['KEYWORD'].", ";
+
+                                    ?>     
+                                <?php
+                                }
+                                $liste_domaines = rtrim($liste_domaines,' ');
+                                $liste_domaines = rtrim($liste_domaines,',');
+                                echo $liste_domaines;
+                            ?>
+                        </td>
                     <td><?php echo $rapport['Nom_entreprise']?></td> 
                     <td><?php echo $rapport['Secteur_entreprise']?></td>
                     <td><?php echo $rapport['Date_stage']?></td>
                     <td><?php echo $rapport['Pays_stage']?></td>
                     <td><?php echo $rapport['Nom_tuteur_IUT']?></td>
                     <td><?php echo $rapport['Nom_tuteur_entreprise']?></td>
-                    
-                    
                     <?php
-                    if ($rapport['Dispo_pret'] == 1){
-                        ?>
-                        <td>Disponible</td>
-                        <?php
-                    } else {
-                    ?>
-                        <td>Indisponible</td> 
-                    <?php
-                    }
                     if ($rapport['Prive'] == 0){
                         ?>
                         <td>Public</td>
@@ -85,9 +91,16 @@
                         <td>Privé</td>
                     <?php
                     } 
-                    
+                    if ($rapport['Dispo_pret'] == 1){
+                        ?>
+                        <td><a href="<?php echo "http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/demande_reservation.php?reference=".$rapport['Reference'] ?>">Réserver</a> </td>
+                    <?php
+                    } else {
+                        ?>
+                        <td><p>Indisponible</a> </td>
+                        <?php
+                    }
                     ?>
-                    <td><a href="<?php echo "http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/demande_reservation.php?reference=".$rapport['Reference'] ?>">Réserver</a> </td>
                 </tr>
         </table>
 
