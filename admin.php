@@ -20,7 +20,6 @@
             if (isset($_GET['note_admin']) && isset($_GET['ref_valide'])){
                 $note = $_GET['note_admin'];
                 
-                
                 $gamme_note = 3;
                 if ($note<=7){
                     $gamme_note = 1;
@@ -30,9 +29,9 @@
                 
                 
                 $ref = $_GET['ref_valide'];
-                $sql = "UPDATE TABLE RAPPORTS SET VALIDE = 1 WHERE Reference = ".$ref;
+                $sql = "UPDATE RAPPORTS SET Valide = 1 WHERE Reference = ".$ref;
                 mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
-                $sql = "UPDATE TABLE RAPPORTS SET Gamme_note = ".$gamme_note." WHERE Reference = ".$ref;
+                $sql = "UPDATE RAPPORTS SET Gamme_note = ".$gamme_note." WHERE Reference = ".$ref;
                 mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
             }
         
@@ -54,49 +53,38 @@
             <a href="./index.php">Accueil</a>
             <a href="./ajout.php">Ajout d'un rapport</a>
             <a href="./tri.php">Recherche de rapport</a>
-        </header>
-        <table id="table_admin">
-            <td>
-                <form id="form_validation" action="admin.php" method="GET">
-                    <table id="table_admin_moderation">
-                        
-                        
-                        <thead>
-                            <td>Référence</td>
-                            <td>Identité</td>
-                            <td>Mail</td>
-                            <td>Note</td>
-                            <td>Validation</td>
-                        </thead>
-                        
-                        
-                        <?php
-                            $sql = "SELECT * FROM RAPPORTS WHERE Valide = 0 LIMIT 1";
-                            $liste_attente = mysql_query($sql) or die('Erreur SQL !'.$liste_attente.'<br>'.mysql_error());
-                            echo $liste_attente['Reference'];
-                        
-                            while ($row = mysql_fetch_array($liste_attente)){
+        </header>                
+                <?php
+                    $sql = "SELECT * FROM RAPPORTS WHERE Valide = 0 LIMIT 1";
+                    $liste_attente = mysql_query($sql) or die('Erreur SQL !'.$liste_attente.'<br>'.mysql_error());
+                    if (mysql_num_rows($liste_attente) == 0){
                         ?>
-                        
-                        
-                        
-                            <td><?php echo $row['Reference']?></td>
-                            <td><?php echo $row['Prenom_etu'].' '.$row['Nom_etu']?></td>
-                            <td><?php echo $row['Mail_etu']?></td>
-                            <input type="hidden" id="ref_valide" value="<?php echo $row['Reference']?>">
-                            <td><input type="number" id="note_admin"></td>
-                            <td><input type="submit" value="Envoyer"> <a href="<?php echo $link?>refuse=<?php echo $row['Reference']?>">Refuser</a></td>
+                        <p id="no_result">Il n'y a plus de rapports à valider</p>
                         <?php
-                            }
-                        ?>
-                    </table>
-                </form>
-            </td>
-            <td>
-                <table id="table_admin_emprunts">
+                    }
+
+                    while ($row = mysql_fetch_array($liste_attente)){
+                ?>
+                    <p>Référence : <?php echo $row['Reference']?></p>
+                    <p>Identité : <?php echo $row['Prenom_etu'].' '.$row['Nom_etu']?></p>
+                    <p>Mail : <?php echo $row['Mail_etu']?></p>
+
+                    <form action="admin.php" method="GET" id="form_validation">
+                        <input type="hidden" id="ref_valide" name="ref_valide" value="<?php echo $row['Reference']?>">
+
+                        <p>Note : </p> <input type="number" id="note_admin" name="note_admin" required="required">
+
+                        <input type="submit" value="Envoyer"> 
+                    </form>
+                    
+                    <a href="<?php echo $link?>refuse=<?php echo $row['Reference']?>">Refuser</a>
+                    
                 
-                </table>
-            </td>
-        </table>
+                    <?php
+                    }
+                ?>  
+            <table id="table_admin_emprunts">
+
+            </table>
     </body>
 </html>
