@@ -29,26 +29,26 @@ Possible d'afficher les rapports en retard
 
 ===============================
 
-Ne pas afficher les rapports privés aux utilisateurs , seulement à l'admin		FAIT (sauf admin)
+Ne pas afficher les rapports privés aux utilisateurs , seulement à l'admin					FAIT (sauf admin)
 Attribuer une note à un rapport pendant la validation 
-Afficher un nombre limité de rapports sur 1 page					FAIT 
-Filtre par note en plus du tri 								FAIT
-Checkbox pays in/out France 								(on oublie, chiant à faire et useless)
+Afficher un nombre limité de rapports sur 1 page								FAIT 
+Filtre par note en plus du tri 											FAIT
+Checkbox pays in/out France 											(on oublie, chiant à faire et useless)
 Tableau de rapports sortis affiché sur la page admin, rapports en retard doivent (pouvoir) être mis en avant
-Emprunt enregistré automatiquement : nom et date
-Retour validé par l'admin via la page 
+Emprunt enregistré automatiquement : nom et date								FAIT
+Retour validé par l'admin via la page
 Mail envoyé automatiquement à l'admin quand un étudiant réserve si il vient pas après 1-2 jours 
-Étudiant rentre sa date estimée de retour
-Prévoir par rapport à 'l'hébergement futur (BD et serveur)
+Étudiant rentre sa date estimée de retour									FAIT
+Prévoir par rapport à 'l'hébergement futur (BD et serveur)							FAIT
 
 
-ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte		FAIT
+ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte					FAIT
 JS : check si tags entrés font moins de 20 caractères
 JS : Check si mail entré est univ-lyon1
-Parser les mots-clés entrés pour l'ajout et les mettre dans la table KEYWORDS : explode()	FAIT
+Parser les mots-clés entrés pour l'ajout et les mettre dans la table KEYWORDS : explode()			FAIT
 
-Mettre des ID de partout pour le CSS
-Gérer la réservation : envoi de mail et passage de "dispo" à 0
+Mettre des ID de partout pour le CSS										FAIT
+Gérer la réservation : envoi de mail et passage de "dispo" à 0							FAIT
 
 admin : Ajout de note pour valider rapport
 admin : Validation emprunt rapport, si pas validé après 2j, emprunt annulé
