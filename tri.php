@@ -20,6 +20,8 @@
                     $gamme_note_user = 2;
                 }
             }
+        
+        
             if (isset($_GET['tri']) && ($_GET['tri'] != 'default')){
                 $tri = 'ORDER BY '.$_GET['tri'];
             } else {
@@ -107,12 +109,23 @@
         
             //Fin gestion des domaines
         
-            if (isset($where)){
-                $requete = "SELECT RAPPORTS.* FROM RAPPORTS, KEYWORDS K ".$where."".$tri."";
-                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS, KEYWORDS K ".$where."".$tri."";
+            if (isset($where) && ((!isset($tri)) or (isset($tri) && $tri == ''))){
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$where." GROUP BY RAPPORTS.Reference";
+                echo "1";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$where." GROUP BY RAPPORTS.Reference";
+            } else if (!isset($where) && ((!isset($tri)) or (isset($tri) && $tri == ''))) {
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference GROUP BY RAPPORTS.Reference";
+                echo "2";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference GROUP BY RAPPORTS.Reference";
+            } else if (!isset($where) && isset($tri)){
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$tri."";
+                echo "3";
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$tri."";
             } else {
-                $requete = "SELECT RAPPORTS.* FROM RAPPORTS, KEYWORDS K ".$tri."";
-                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS, KEYWORDS K ".$tri."";
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$where."".$tri."";
+                echo "4";
+                echo $tri;
+                $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$where."".$tri."";
             }
         
         
@@ -122,7 +135,8 @@
             if (isset($limite)){
                 $requete .= " ".$limite."";
             }
-           /* echo $requete;
+            /*echo $requete;
+            echo '</br>';
             echo '</br>';
             echo $requete_count;*/
         
@@ -211,7 +225,7 @@
                     <td><?php echo $rapport['Gamme_note']?></td>
                     <td><table>
                         <?php
-                            $sql_keywords = "SELECT KEYWORD FROM KEYWORDS WHERE Reference = 1";
+                            $sql_keywords = "SELECT KEYWORD FROM KEYWORDS WHERE Reference = ".$rapport['Reference']."";
                             $mots_cles = mysql_query($sql_keywords) or die('Erreur SQL ! '.$sql_keywords.'<br>'.mysql_error());
 
                             while ($row=mysql_fetch_array($mots_cles)){ 
@@ -226,6 +240,8 @@
                             <?php
                             }
                         ?>
+                        </table>
+                    </td>
                     <td><?php echo $rapport['Nom_entreprise']?></td> 
                     <td><?php echo $rapport['Secteur_entreprise']?></td>
                     <td><?php echo $rapport['Date_stage']?></td>
