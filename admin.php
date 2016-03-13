@@ -1,86 +1,102 @@
 <?php
-function Connect_db(){
-	  $host="iutdoua-webetu.univ-lyon1.fr";
-	  $user="p1400208";
-	  $password="210864";
-	  $dbname="p1400208";
-  try {
-	   $bdd=new PDO('mysql:host='.$host.';dbname='.$dbname.
-					';charset=utf8',$user,$password);
-	   return $bdd;
-	}
-	catch (Exception $e) {
-	   die('Erreur : '.$e->getMessage());
-  }
-}
-
-function getRapportsNV() {
-		$bdd = Connect_db();
-		$query = $bdd->prepare('SELECT Nom_etu, Prenom_etu, Nom_tuteur_IUT FROM RAPPORTS R WHERE R.Valide = 0');
-		$query->execute();
-		
-		$map = array();
-		
-		while($data = $query->fetch()) {
-			$map[] = array( 
-				'Nom_etu' => $data['Nom_etu'],
-				'Prenom_etu' => $data['Prenom_etu'],
-				'Nom_tuteur_IUT' => $data['Nom_tuteur_IUT']);
-		}
-		$query->closeCursor();
-		
-		return $map;
-}
-
-function getRapportsPret() {
-		$bdd = Connect_db();
-		$query = $bdd->prepare('');//Changer ça
-		$query->execute();
-		
-		$map = array();
-		
-		while($data = $query->fetch()) {
-			$map[] = array( 
-				'Nom_etu' => $data['Nom_etu'],
-				'Prenom_etu' => $data['Prenom_etu'],
-				'Nom_tuteur_IUT' => $data['Nom_tuteur_IUT']);
-		}
-		$query->closeCursor();
-		
-		return $map;
-}
-
+    ini_set('session.save_path', 'tmp');
+    session_start();
 ?>
+
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8" />
-		<title>Page d'admin</title>
-	</head>
-	<body>
+    <head>
+        <meta charset="utf-8"/>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="style.css" type="text/css">
+        <?php
+            $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
+            mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
+            
+            $link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        
+        
+        
+            if (isset($_GET['note_admin']) && isset($_GET['ref_valide'])){
+                $note = $_GET['note_admin'];
+                
+                
+                $gamme_note = 3;
+                if ($note<=7){
+                    $gamme_note = 1;
+                } else if ($note <= 13){
+                    $gamme_note = 2;
+                }
+                
+                
+                $ref = $_GET['ref_valide'];
+                $sql = "UPDATE TABLE RAPPORTS SET VALIDE = 1 WHERE Reference = ".$ref;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                $sql = "UPDATE TABLE RAPPORTS SET Gamme_note = ".$gamme_note." WHERE Reference = ".$ref;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+            }
+        
+        
+        
+        
+            else if (isset($_GET['refuse'])){
+                $refuse = $_GET['refuse'];
+                $sql = "DELETE FROM RAPPORTS WHERE Reference = ".$refuse;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                $sql = "DELETE FROM KEYWORDS WHERE Reference = ".$refuse;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+            }
+        ?>
+        
+    </head>
+    <body>
         <header>
             <a href="./index.php">Accueil</a>
             <a href="./ajout.php">Ajout d'un rapport</a>
             <a href="./tri.php">Recherche de rapport</a>
-            <a href="./admin.php">Page administrateur</a>
         </header>
-		<form method="POST" action="control_valider.php">
-			<?php 
-				$map = getRapportsNV();
-				$i = 0;
-				if(isset($map)) {
-					foreach($map as $data) {
-						print_r($data['Nom_etu']);
-                        print_r($data['Prenom_etu']);
-                        print_r($data['Nom_tuteur_IUT']);
-						?>
-							<input type="checkbox" name="cbvar[]" value="<?php echo $i; ?>">Valider<br/>
-						<?php
-						$i++;
-					}
-				}
-			?>
-			<input type="submit" value="Valider">
-		</form>
-	</body>
+        <table id="table_admin">
+            <td>
+                <form id="form_validation" action="admin.php" method="GET">
+                    <table id="table_admin_moderation">
+                        
+                        
+                        <thead>
+                            <td>Référence</td>
+                            <td>Identité</td>
+                            <td>Mail</td>
+                            <td>Note</td>
+                            <td>Validation</td>
+                        </thead>
+                        
+                        
+                        <?php
+                            $sql = "SELECT * FROM RAPPORTS WHERE Valide = 0 LIMIT 1";
+                            $liste_attente = mysql_query($sql) or die('Erreur SQL !'.$liste_attente.'<br>'.mysql_error());
+                            echo $liste_attente['Reference'];
+                        
+                            while ($row = mysql_fetch_array($liste_attente)){
+                        ?>
+                        
+                        
+                        
+                            <td><?php echo $row['Reference']?></td>
+                            <td><?php echo $row['Prenom_etu'].' '.$row['Nom_etu']?></td>
+                            <td><?php echo $row['Mail_etu']?></td>
+                            <input type="hidden" id="ref_valide" value="<?php echo $row['Reference']?>">
+                            <td><input type="number" id="note_admin"></td>
+                            <td><input type="submit" value="Envoyer"> <a href="<?php echo $link?>refuse=<?php echo $row['Reference']?>">Refuser</a></td>
+                        <?php
+                            }
+                        ?>
+                    </table>
+                </form>
+            </td>
+            <td>
+                <table id="table_admin_emprunts">
+                
+                </table>
+            </td>
+        </table>
+    </body>
 </html>

@@ -36,15 +36,15 @@ Filtre par note en plus du tri 											FAIT
 Checkbox pays in/out France 											(on oublie, chiant à faire et useless)
 Tableau de rapports sortis affiché sur la page admin, rapports en retard doivent (pouvoir) être mis en avant
 Emprunt enregistré automatiquement : nom et date								FAIT
-Retour validé par l'admin via la page
+Retour validé par l'admin via la page										FAIT EN PARTIE
 Mail envoyé automatiquement à l'admin quand un étudiant réserve si il vient pas après 1-2 jours 
 Étudiant rentre sa date estimée de retour									FAIT
 Prévoir par rapport à 'l'hébergement futur (BD et serveur)							FAIT
 
 
 ajouter des tags pour les domaines au lieu de tout rentrer dans un champ texte					FAIT
-JS : check si tags entrés font moins de 20 caractères
-JS : Check si mail entré est univ-lyon1
+JS : check si tags entrés font moins de 20 caractères								PLUS TARD
+JS : Check si mail entré est univ-lyon1										USELESS
 Parser les mots-clés entrés pour l'ajout et les mettre dans la table KEYWORDS : explode()			FAIT
 
 Mettre des ID de partout pour le CSS										FAIT
