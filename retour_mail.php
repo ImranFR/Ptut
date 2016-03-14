@@ -25,9 +25,12 @@
     </head>
     <body>
         <header>
-            <a href="./index.php">Accueil</a>
-            <a href="./ajout.php">Ajout d'un rapport</a>
-            <a href="./tri.php">Recherche de rapport</a>
+           <ul>
+				<li><a href="./index.php">Accueil</a></li>
+				<li><a href="./ajout.php">Ajout d'un rapport</a></li>
+				<li><a href="./tri.php">Recherche de rapport</a></li>
+				<li><a href="./admin.php">Page administrateur</a></li>
+			</ul>
         </header>
         <?php
         if ($resultat == 1){
