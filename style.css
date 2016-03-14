@@ -82,3 +82,81 @@ p#desc_emprunt_ok{
 p#desc_emprunt_pending{
     color: black;
 }
+
+/* SHITTY CSS BY IMRAN  */
+
+/* MENU */
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: inline-block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li a:hover {
+	background-color: #111;
+}
+
+/*FORM SUBMIT NEW REPORT */
+
+/* style fields */
+input[type=text], input[type=date], input[type=email], select {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+/* mise en page des div */
+#leftAjout {
+    float:left;
+    width:30%;
+}
+
+#centerAjout {
+    display: inline-block;
+    margin:0 auto;
+    width:30%;
+}
+
+#rightAjout {
+    float:right;
+    width:30%;
+}
+
+
+#form-submit{
+position:relative;
+margin-top: 10%;
+}
