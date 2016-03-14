@@ -33,17 +33,39 @@
                 mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
                 $sql = "UPDATE RAPPORTS SET Gamme_note = ".$gamme_note." WHERE Reference = ".$ref;
                 mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                
+                header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/admin.php');
             }
-        
-        
-        
-        
-            else if (isset($_GET['refuse'])){
+            if (isset($_GET['refuse'])){
                 $refuse = $_GET['refuse'];
                 $sql = "DELETE FROM RAPPORTS WHERE Reference = ".$refuse;
                 mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
                 $sql = "DELETE FROM KEYWORDS WHERE Reference = ".$refuse;
                 mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                
+                header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/admin.php');
+            }
+            if (isset($_GET['rapport_retire'])){
+                $rapport_retire = $_GET['rapport_retire'];
+                $sql = "UPDATE RAPPORTS SET recu = 1 WHERE Reference = ".$rapport_retire;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                
+                header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/admin.php');
+            }
+            if (isset($_GET['annuler'])){
+                $annule = $_GET['annuler'];
+                $sql = "UPDATE RAPPORTS SET recu = 0 WHERE Reference = ".$annule;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                $sql = "UPDATE RAPPORTS SET date_reservation = NULL WHERE Reference = ".$annule;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                $sql = "UPDATE RAPPORTS SET emprunteur = NULL WHERE Reference = ".$annule;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                $sql = "UPDATE RAPPORTS SET Dispo_pret = 1 WHERE Reference = ".$annule;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                $sql = "UPDATE RAPPORTS SET date_fin_reservation = NULL WHERE Reference = ".$annule;
+                mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                
+                header('Location: http://iutdoua-webetu.univ-lyon1.fr/~p1400208/Ptut/admin.php');
             }
         ?>
         
@@ -84,7 +106,32 @@
                     }
                 ?>  
             <table id="table_admin_emprunts">
-
+                <?php
+                $current_date = getdate();
+                $date = $current_date['year']."-".$current_date['mon']."-".$current_date['mday'];
+                $date_du_jour = new DateTime($date);
+                
+                
+                $sql = "SELECT * FROM RAPPORTS WHERE Dispo_pret = 0 ORDER BY date_reservation";
+                $liste_emprunts = mysql_query($sql) or die('Erreur SQL !'.$liste_attente.'<br>'.mysql_error());
+                while ($row = mysql_fetch_array($liste_emprunts)){
+                    
+                    $date_de_lemprunt = new DateTime($row['date_reservation']);
+                    $difference = $date_du_jour -> diff($date_de_lemprunt);
+                    $nb_jours = $difference -> format('%R%a jours');
+                    if ($row['recu'] == 1){
+                        echo '<p id="desc_emprunt_ok">Le rapport '.$row['Reference'].' a été emprunté par '.$row['emprunteur'].'. L\'emprunt commence le '.$row['date_reservation'].' et sera rendu le '.$row['date_fin_reservation'].'.</p>';
+                    } else {
+                        if ($nb_jours < -2){
+                            echo '<p id="desc_emprunt_late">Le rapport '.$row['Reference'].' aurait du être emprunté par '.$row['emprunteur'].' le '.$row['date_reservation'].'</p>';
+                        } else {
+                            echo '<p id="desc_emprunt_pending">Le rapport '.$row['Reference'].' sera emprunté par '.$row['emprunteur'].' le '.$row['date_reservation'].'</p>';
+                        }
+                    }
+                    echo '<a href="'.$link.'?rapport_retire='.$row['Reference'].'">Rapport retiré</a>';
+                    echo '<a href="'.$link.'?annuler='.$row['Reference'].'">Annuler ou terminer emprunt</a>';
+                }
+                ?>
             </table>
     </body>
 </html>

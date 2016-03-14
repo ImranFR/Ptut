@@ -1,8 +1,7 @@
 <?php
-    ini_set('session.save_path', 'tmp');
     session_start();
+    ini_set('session.save_path', 'tmp');
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,7 +61,6 @@
                 $message .= 'Date de rendu prévue : <em>'.$date_fin.'</em><br>';
                 $message .= 'Mail de l\'étudiant : <em>'.$mail_reservation.'</em><br>';
                 $message .= 'Message généré par le site.';
-                echo $message;
                 
                 $headers = "MIME-Version: 1.0\r\n";
                 $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
@@ -73,13 +71,18 @@
                     $sql = "UPDATE RAPPORTS SET Dispo_pret=0 WHERE Reference = ".$reference;
                     $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
                     mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
-                    mysql_query($sql) or die('Erreur SQL !'.$liste_rapports.'<br>'.mysql_error());
+                    mysql_query($sql) or die('Erreur SQL !'.$sql.'<br>'.mysql_error());
+                    $sql = "UPDATE RAPPORTS SET date_reservation = '".$date_debut."' WHERE Reference = ".$reference;
+                    mysql_query($sql) or die('Erreur SQL ! '.$sql.'<br'.mysql_error());
+                    $sql = "UPDATE RAPPORTS SET date_fin_reservation = '".$date_fin."' WHERE Reference = ".$reference;
+                    mysql_query($sql) or die('Erreur SQL ! '.$sql.'<br'.mysql_error());
+                    $sql = "UPDATE RAPPORTS SET emprunteur = '".$prenom_reservation." ".$nom_reservation."' WHERE Reference = ".$reference;
+                    mysql_query($sql) or die('Erreur SQL ! '.$sql.'<br'.mysql_error());
                     header('Location: ./retour_mail.php?resultat=1&date_debut='.$date_debut);
                 } else {
                     header('Location: ./retour_mail.php?resultat=0&date_debut='.$date_debut);
                 }
             }
-        
         ?>
     </head>
     <body>

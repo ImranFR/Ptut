@@ -3,7 +3,7 @@
     session_start();
     header( 'content-type: text/html; charset=utf-8' );
 
-    $test = TRUE;
+    $test = FALSE;
     
 ?>
 
@@ -139,14 +139,14 @@
                 }
                 $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference GROUP BY RAPPORTS.Reference";
             } else if (!isset($where) && isset($tri)){
-                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$tri."";
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference GROUP BY RAPPORTS.Reference ".$tri." ";
                 if ($test == TRUE){
                     echo "Cas 3";
                     echo "<br>";
                 }
                 $requete_count = "SELECT COUNT(*) as reference FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$tri."";
             } else {
-                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$where."".$tri."";
+                $requete = "SELECT RAPPORTS.* FROM RAPPORTS INNER JOIN KEYWORDS ON RAPPORTS.Reference = KEYWORDS.Reference ".$where." GROUP BY RAPPORTS.Reference ".$tri." ";
                 if ($test == TRUE){
                     echo "Cas 4";
                     echo "<br>";

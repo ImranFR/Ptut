@@ -68,3 +68,17 @@ td{
 td.centre{
     width:1vw;   
 }
+
+/*--- admin.php ---*/
+
+p#desc_emprunt_late{
+    color: red;
+}
+
+p#desc_emprunt_ok{
+    color: green;
+}
+
+p#desc_emprunt_pending{
+    color: black;
+}

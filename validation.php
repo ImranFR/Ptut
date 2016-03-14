@@ -8,8 +8,7 @@
     <head>
         <meta charset="utf-8"/>
         <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="style.css" type="text/css">
-        <?php
+        <link rel="stylesheet" href="style.css" type="text/css"><?php
             $regex = "@etu.univ-lyon1.fr$";
             $db = mysql_connect('iutdoua-webetu.univ-lyon1.fr', 'p1400208', '210864')  or die('Erreur de connexion '.mysql_error());
             mysql_select_db('p1400208',$db)  or die('Erreur de selection '.mysql_error()); 
@@ -237,7 +236,7 @@
                                         '$Nom_tuteur_IUT',
                                         '$Nom_tuteur_entreprise',
                                         0,
-                                        0,
+                                        1,
                                         '$Prive')"; 
                             if (isset($update)){
                                 
